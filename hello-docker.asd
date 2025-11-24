@@ -1,3 +1,3 @@
 (asdf:defsystem "hello-docker"
-  :depends-on (:trivia)
+  :depends-on (:trivia :woo)
   :components ((:file "main")))

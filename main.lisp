@@ -5,4 +5,8 @@
 (in-package :hello-docker)
 
 (defun main ()
-  (format t "Hello, world! ~%"))
+  (woo:run
+   (lambda (env)
+     (declare (ignore env))
+     '(200 (:content-type "text/plain") ("Hello, World")))
+  :address "0.0.0.0"))
