@@ -8,5 +8,5 @@
   (woo:run
    (lambda (env)
      (declare (ignore env))
-     '(200 (:content-type "text/plain") ("Hello, World")))
+     '(200 (:content-type "text/plain") ("Hello, new World")))
   :address "0.0.0.0"))
