@@ -8,5 +8,7 @@
   (woo:run
    (lambda (env)
      (declare (ignore env))
-     '(200 (:content-type "text/plain") ("Hello, new World")))
+     (list 200 '(:content-type "text/plain")
+           (list (format nil "Hello, from ~A" (machine-instance)))))
+  :port 5000
   :address "0.0.0.0"))
