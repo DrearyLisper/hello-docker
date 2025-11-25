@@ -17,4 +17,6 @@ RUN sbcl \
          --load hello-docker.asd \
          --eval "(asdf:make :hello-docker)"
 
+RUN [ -e "hello-docker" ]
+
 ENTRYPOINT /app/hello-docker

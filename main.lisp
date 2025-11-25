@@ -8,7 +8,66 @@
   (woo:run
    (lambda (env)
      (declare (ignore env))
-     (list 200 '(:content-type "text/plain")
-           (list (format nil "(compiled) Hello, from ~A" (machine-instance)))))
-  :port 5000
-  :address "0.0.0.0"))
+     (let ((machine (machine-instance)))
+       (multiple-value-bind (sec min hour date month year)
+           (get-decoded-time)
+         (list 200 '(:content-type "text/html")
+               (list (format nil "<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello Docker</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        h1 {
+            margin: 0 0 1rem 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .machine-info {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class=\"container\">
+        <h1>✨ Hello from Docker! ✨</h1>
+        <div class=\"machine-info\">
+            <p><strong>Server:</strong> <code>~A</code></p>
+            <p><strong>Time:</strong> <code>~A-~A-~A ~A:~A:~A</code></p>
+        </div>
+        <div class=\"footer\">
+            <p>Powered by Common Lisp & Woo Framework</p>
+        </div>
+    </div>
+</body>
+</html>" machine year month date hour min sec))))))
+   :port 5000
+   :address "0.0.0.0"))
