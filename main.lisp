@@ -9,6 +9,6 @@
    (lambda (env)
      (declare (ignore env))
      (list 200 '(:content-type "text/plain")
-           (list (format nil "Hello, from ~A" (machine-instance)))))
+           (list (format nil "(compiled) Hello, from ~A" (machine-instance)))))
   :port 5000
   :address "0.0.0.0"))

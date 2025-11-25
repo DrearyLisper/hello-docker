@@ -13,8 +13,8 @@ EXPOSE 5000
 WORKDIR /app
 COPY . /app
 
-ENTRYPOINT sbcl \
+RUN sbcl \
          --load hello-docker.asd \
-         --eval "(ql:quickload :hello-docker)" \
-         --eval "(hello-docker:main)" \
-         --eval "(sb-ext:exit)"
+         --eval "(asdf:make :hello-docker)"
+
+ENTRYPOINT /app/hello-docker
